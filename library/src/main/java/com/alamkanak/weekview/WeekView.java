@@ -178,7 +178,7 @@ public class WeekView extends View {
             switch (mCurrentScrollDirection) {
                 case NONE: {
                     // Allow scrolling only in one direction.
-                    if (Math.abs(distanceX) > Math.abs(distanceY)) {
+           /*         if (Math.abs(distanceX) > Math.abs(distanceY)) {
                         if (distanceX > 0) {
                             mCurrentScrollDirection = Direction.LEFT;
                         } else {
@@ -186,10 +186,12 @@ public class WeekView extends View {
                         }
                     } else {
                         mCurrentScrollDirection = Direction.VERTICAL;
-                    }
+                    }*/
+                    mCurrentScrollDirection = Direction.VERTICAL;
+
                     break;
                 }
-                case LEFT: {
+              /*  case LEFT: {
                     // Change direction if there was enough change.
                     if (Math.abs(distanceX) > Math.abs(distanceY) && (distanceX < -mScaledTouchSlop)) {
                         mCurrentScrollDirection = Direction.RIGHT;
@@ -202,16 +204,16 @@ public class WeekView extends View {
                         mCurrentScrollDirection = Direction.LEFT;
                     }
                     break;
-                }
+                }*/
             }
 
             // Calculate the new origin after scroll.
             switch (mCurrentScrollDirection) {
-                case LEFT:
+             /*   case LEFT:
                 case RIGHT:
                     mCurrentOrigin.x -= distanceX * mXScrollingSpeed;
                     ViewCompat.postInvalidateOnAnimation(WeekView.this);
-                    break;
+                    break;*/
                 case VERTICAL:
                     mCurrentOrigin.y -= distanceY;
                     ViewCompat.postInvalidateOnAnimation(WeekView.this);
@@ -379,7 +381,7 @@ public class WeekView extends View {
         mTimeTextPaint.setColor(mHeaderColumnTextColor);
         Rect rect = new Rect();
         mTimeTextPaint.getTextBounds("00 PM", 0, "00 PM".length(), rect);
-        mTimeTextHeight = rect.height();
+        mTimeTextHeight = rect.height() ;
         mHeaderMarginBottom = mTimeTextHeight / 2;
         initTextTimeWidth();
 
@@ -501,7 +503,7 @@ public class WeekView extends View {
         drawHeaderRowAndEvents(canvas);
 
         // Draw the time column and all the axes/separators.
-         drawTimeColumnAndAxes(canvas);
+        drawTimeColumnAndAxes(canvas);
     }
 
     private void drawTimeColumnAndAxes(Canvas canvas) {
@@ -696,7 +698,7 @@ public class WeekView extends View {
         canvas.drawRect(0, 0, getWidth(), mHeaderTextHeight + mHeaderRowPadding * 2, mHeaderBackgroundPaint);
 
         // Draw the header row texts.
-        startPixel = startFromPixel;
+      /*  startPixel = startFromPixel;
         for (int dayNumber=leftDaysWithGaps+1; dayNumber <= leftDaysWithGaps + mNumberOfVisibleDays + 1; dayNumber++) {
             // Check if the day is today.
             day = (Calendar) today.clone();
@@ -711,7 +713,7 @@ public class WeekView extends View {
             //canvas.drawText("there", startPixel + mWidthPerDay / 2, mHeaderTextHeight + mHeaderRowPadding, sameDay ? mTodayHeaderTextPaint : mHeaderTextPaint);
 
             startPixel += mWidthPerDay + mColumnGap;
-        }
+        }*/
 
 
         // Draw the header user texts.
@@ -1792,9 +1794,9 @@ public class WeekView extends View {
 
         // Check after call of mGestureDetector, so mCurrentFlingDirection and mCurrentScrollDirection are set.
         if (event.getAction() == MotionEvent.ACTION_UP && !mIsZooming && mCurrentFlingDirection == Direction.NONE) {
-            if (mCurrentScrollDirection == Direction.RIGHT || mCurrentScrollDirection == Direction.LEFT) {
+           /* if (mCurrentScrollDirection == Direction.RIGHT || mCurrentScrollDirection == Direction.LEFT) {
                 goToNearestOrigin();
-            }
+            }*/
             mCurrentScrollDirection = Direction.NONE;
         }
 

@@ -39,6 +39,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
 
+
         // Show a toast message about the touched event.
         mWeekView.setOnEventClickListener(this);
 
@@ -54,7 +55,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
 
         mWeekView.setNumberOfVisibleDays(5);
 
-        mWeekView.setUsers(new String[]{"Anitha", "John", "Clement", "Amitab", "Joseph"});
+        mWeekView.setUsers(new String[] {"Anitha", "John", "Clement", "Amitab", "Joseph"});
 
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
