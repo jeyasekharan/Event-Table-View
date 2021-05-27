@@ -1,5 +1,6 @@
 package com.alamkanak.weekview.sample;
 
+import android.graphics.Color;
 import android.util.Log;
 
 import com.alamkanak.weekview.WeekViewEvent;
@@ -23,6 +24,8 @@ import java.util.List;
 public class BasicActivity extends BaseActivity {
 
     ArrayList<List<Events>> arrayList;
+
+    int[] colors = {R.color.event_color_01, R.color.event_color_02, R.color.event_color_03, R.color.event_color_04};
 
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
@@ -208,26 +211,38 @@ public class BasicActivity extends BaseActivity {
 
         assert engineerEvents != null;
         for (List<Events> event : engineerEvents) {
+            int colorIndex = 0;
 
             for (Events singleUser : event) {
 
+                String startTime = singleUser.getStartDate().split(" ")[1];
+                String endTime = singleUser.getEndDate().split(" ")[1];
+
+                int startTimeInt = Integer.parseInt(startTime.substring(0,2));
+                int endTimeInt = Integer.parseInt(endTime.substring(0,2));
+
+
                 Calendar calStartTime4 = Calendar.getInstance();
                 calStartTime4.set(Calendar.DAY_OF_MONTH, todayIndex);
-                calStartTime4.set(Calendar.HOUR_OF_DAY, 7);
+                calStartTime4.set(Calendar.HOUR_OF_DAY, startTimeInt);
                 calStartTime4.set(Calendar.MINUTE, 0);
                 calStartTime4.set(Calendar.MONTH, newMonth-1);
                 calStartTime4.set(Calendar.YEAR, newYear);
 
                 Calendar calEndTime4 = Calendar.getInstance();
                 calEndTime4.set(Calendar.DAY_OF_MONTH, todayIndex);
-                calEndTime4.set(Calendar.HOUR_OF_DAY, 9);
+                calEndTime4.set(Calendar.HOUR_OF_DAY, endTimeInt);
                 calEndTime4.set(Calendar.MINUTE, 0);
                 calEndTime4.set(Calendar.MONTH, newMonth-1);
                 calEndTime4.set(Calendar.YEAR, newYear);
 
                 WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), calStartTime4, calEndTime4);
-                event4.setColor(getResources().getColor(R.color.event_color_03));
+                event4.setColor(getResources().getColor(colors[colorIndex]));
+               // event4.setColor(getResources().getColor(R.color.event_color_02));
+
                 events.add(event4);
+
+                colorIndex = colorIndex+ 1;
             }
 
             todayIndex += 1;
