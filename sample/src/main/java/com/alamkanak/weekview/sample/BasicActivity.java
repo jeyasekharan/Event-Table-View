@@ -29,6 +29,7 @@ public class BasicActivity extends BaseActivity {
 
     @Override
     public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+
         // Populate the week view with some events.
         arrayList = EventUtils.INSTANCE.getData();
 
@@ -37,7 +38,7 @@ public class BasicActivity extends BaseActivity {
 
         List<WeekViewEvent> events = new ArrayList<>();
 
-    /*    Calendar calStartTime = Calendar.getInstance();
+    /*  Calendar calStartTime = Calendar.getInstance();
         calStartTime.set(Calendar.HOUR_OF_DAY, 10);
         calStartTime.set(Calendar.MINUTE, 0);
         calStartTime.set(Calendar.MONTH, newMonth-1);
@@ -196,9 +197,6 @@ public class BasicActivity extends BaseActivity {
         events.add(event);
 */
 
-
-
-
         ArrayList<List<Events>> engineerEvents = EventUtils.INSTANCE.getData();
 
         String[] usernames = EventUtils.INSTANCE.setEngineerColumnNames();
@@ -238,7 +236,6 @@ public class BasicActivity extends BaseActivity {
 
                 WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), calStartTime4, calEndTime4);
                 event4.setColor(getResources().getColor(colors[colorIndex]));
-               // event4.setColor(getResources().getColor(R.color.event_color_02));
 
                 events.add(event4);
 

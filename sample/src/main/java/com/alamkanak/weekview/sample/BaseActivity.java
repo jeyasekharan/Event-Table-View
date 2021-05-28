@@ -3,6 +3,7 @@ package com.alamkanak.weekview.sample;
 import android.graphics.RectF;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,9 +13,13 @@ import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.alamkanak.weekview.sample.models.EventUtils;
+import com.alamkanak.weekview.sample.models.Events;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -29,6 +34,8 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
+
+
 
 
     @Override
@@ -60,6 +67,15 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(false);
+
+
+        String[] usernames = EventUtils.INSTANCE.setEngineerColumnNames();
+
+        for (String username : usernames) {
+            Log.e("username  ", " "+username  );
+        }
+
+        mWeekView.setUsers(new String[] {usernames[0], usernames[1], usernames[2], usernames[3], usernames[4]});
     }
 
 
