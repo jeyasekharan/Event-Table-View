@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class BasicActivity extends BaseActivity {
 
-    ArrayList<List<Events>> arrayList;
+ /*   ArrayList<List<Events>> arrayList;
 
     int[] colors = {R.color.event_color_01, R.color.event_color_02, R.color.event_color_03, R.color.event_color_04};
 
@@ -33,12 +33,13 @@ public class BasicActivity extends BaseActivity {
         // Populate the week view with some events.
         arrayList = EventUtils.INSTANCE.getData();
 
-
         //setEngineersData();
 
         List<WeekViewEvent> events = new ArrayList<>();
 
-    /*  Calendar calStartTime = Calendar.getInstance();
+
+
+    *//*  Calendar calStartTime = Calendar.getInstance();
         calStartTime.set(Calendar.HOUR_OF_DAY, 10);
         calStartTime.set(Calendar.MINUTE, 0);
         calStartTime.set(Calendar.MONTH, newMonth-1);
@@ -55,7 +56,7 @@ public class BasicActivity extends BaseActivity {
         events.add(event0);
 
 
-        *//* Calculate today's date *//*
+        *//**//* Calculate today's date *//**//*
         int today = calStartTime.get(Calendar.DAY_OF_MONTH);
 
         Calendar calStartTime2 = Calendar.getInstance();
@@ -94,11 +95,10 @@ public class BasicActivity extends BaseActivity {
 
         WeekViewEvent event3 = new WeekViewEvent(6, "7 to 8", calStartTime3, calEndTime3);
         event3.setColor(getResources().getColor(R.color.event_color_03));
-        events.add(event3);*/
+        events.add(event3);*//*
 
 
-
-       /*  Calendar startTime = Calendar.getInstance();
+       *//*  Calendar startTime = Calendar.getInstance();
         startTime.set(Calendar.HOUR_OF_DAY, 3);
         startTime.set(Calendar.MINUTE, 0);
         startTime.set(Calendar.MONTH, newMonth-1);
@@ -195,14 +195,15 @@ public class BasicActivity extends BaseActivity {
         event = new WeekViewEvent(5, getEventTitle(startTime), startTime, endTime);
         event.setColor(getResources().getColor(R.color.event_color_02));
         events.add(event);
-*/
+*//*
+
 
         ArrayList<List<Events>> engineerEvents = EventUtils.INSTANCE.getData();
 
         String[] usernames = EventUtils.INSTANCE.setEngineerColumnNames();
 
         for (String username : usernames) {
-            Log.e("username  ", " "+username  );
+            Log.e("  username  ", " "+username  );
         }
 
         int todayIndex = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -247,7 +248,7 @@ public class BasicActivity extends BaseActivity {
         return events;
     }
 
-/*    private void setEngineersData() {
+*//*    private void setEngineersData() {
         ArrayList<List<Events>> events = EventUtils.INSTANCE.getData();
 
         String[] usernames = EventUtils.INSTANCE.setEngineerColumnNames();

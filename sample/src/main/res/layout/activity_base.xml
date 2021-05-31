@@ -1,4 +1,5 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,10 +7,100 @@
     tools:context=".BaseActivity"
     android:background="#fff">
 
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/ll_date"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:orientation="horizontal"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/iv_left_arrow"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_right_arrow"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:rotation="180"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Date"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:id="@+id/cl_users"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ll_date">
+
+        <ImageView
+            android:id="@+id/iv_left_arrow_users"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/iv_right_arrow_users"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            android:rotation="180"
+            android:src="@drawable/ic_left_arrow"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_users"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Users"
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+
     <com.alamkanak.weekview.WeekView
         android:id="@+id/weekView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:eventTextColor="@android:color/white"
         app:textSize="12sp"
         app:hourHeight="150dp"
@@ -22,6 +113,8 @@
         app:dayBackgroundColor="#05000000"
         app:todayBackgroundColor="#1848adff"
         app:headerColumnBackground="#ffffffff"
-        app:todayHeaderTextColor="@color/accent" />
+        app:todayHeaderTextColor="@color/accent"
+        app:layout_constraintTop_toBottomOf="@id/cl_users"
+        app:layout_constraintBottom_toBottomOf="parent"/>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>

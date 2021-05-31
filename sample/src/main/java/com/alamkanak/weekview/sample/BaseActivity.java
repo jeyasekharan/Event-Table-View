@@ -1,18 +1,22 @@
 package com.alamkanak.weekview.sample;
 
 import android.graphics.RectF;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.alamkanak.weekview.DateTimeInterpreter;
 import com.alamkanak.weekview.MonthLoader;
 import com.alamkanak.weekview.WeekView;
 import com.alamkanak.weekview.WeekViewEvent;
+import com.alamkanak.weekview.sample.apiclient.Event;
 import com.alamkanak.weekview.sample.models.EventUtils;
 import com.alamkanak.weekview.sample.models.Events;
 
@@ -29,23 +33,31 @@ import java.util.Locale;
  * Website: http://alamkanak.github.io
  */
 public abstract class BaseActivity extends AppCompatActivity implements WeekView.EventClickListener, MonthLoader.MonthChangeListener, WeekView.EventLongPressListener, WeekView.EmptyViewLongPressListener {
+
+    ArrayList<List<Events>> arrayList;
+
+    int[] colors = {R.color.event_color_01, R.color.event_color_02, R.color.event_color_03, R.color.event_color_04};
+
     private static final int TYPE_DAY_VIEW = 1;
     private static final int TYPE_THREE_DAY_VIEW = 2;
     private static final int TYPE_WEEK_VIEW = 3;
     private int mWeekViewType = TYPE_THREE_DAY_VIEW;
     private WeekView mWeekView;
 
+    ImageView iv_left_arrow_users;
+    ImageView iv_right_arrow_users;
 
-
+    EventUtils eventUtils = EventUtils.INSTANCE;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_base);
 
+        arrayList = EventUtils.INSTANCE.getData();
+
         // Get a reference for the week view in the layout.
         mWeekView = (WeekView) findViewById(R.id.weekView);
-
 
         // Show a toast message about the touched event.
         mWeekView.setOnEventClickListener(this);
@@ -76,8 +88,33 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
         }
 
         mWeekView.setUsers(new String[] {usernames[0], usernames[1], usernames[2], usernames[3], usernames[4]});
+
+        initViews();
+        setClickListeners();
     }
 
+    private void setClickListeners() {
+        iv_left_arrow_users.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayList = eventUtils.decreaseIndex();
+                mWeekView.notifyDatasetChanged();
+            }
+        });
+
+        iv_right_arrow_users.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayList = eventUtils.increaseIndex();
+                mWeekView.notifyDatasetChanged();
+            }
+        });
+    }
+
+    private void initViews() {
+        iv_left_arrow_users = findViewById(R.id.iv_left_arrow_users);
+        iv_right_arrow_users = findViewById(R.id.iv_right_arrow_users);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -165,6 +202,67 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
     protected String getEventTitle(Calendar time) {
         return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH)+1, time.get(Calendar.DAY_OF_MONTH));
     }
+
+    @Override
+    public List<? extends WeekViewEvent> onMonthChange(int newYear, int newMonth) {
+
+        // Populate the week view with some events.
+
+        //setEngineersData();
+
+        List<WeekViewEvent> events = new ArrayList<>();
+
+
+        String[] usernames = EventUtils.INSTANCE.setEngineerColumnNames();
+
+        for (String username : usernames) {
+
+        }
+
+        int todayIndex = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
+
+        if(arrayList != null) {
+            for (List<Events> event : arrayList) {
+                int colorIndex = 0;
+
+                for (Events singleUser : event) {
+
+                    String startTime = singleUser.getStartDate().split(" ")[1];
+                    String endTime = singleUser.getEndDate().split(" ")[1];
+
+                    int startTimeInt = Integer.parseInt(startTime.substring(0,2));
+                    int endTimeInt = Integer.parseInt(endTime.substring(0,2));
+
+
+                    Calendar calStartTime4 = Calendar.getInstance();
+                    calStartTime4.set(Calendar.DAY_OF_MONTH, todayIndex);
+                    calStartTime4.set(Calendar.HOUR_OF_DAY, startTimeInt);
+                    calStartTime4.set(Calendar.MINUTE, 0);
+                    calStartTime4.set(Calendar.MONTH, newMonth-1);
+                    calStartTime4.set(Calendar.YEAR, newYear);
+
+                    Calendar calEndTime4 = Calendar.getInstance();
+                    calEndTime4.set(Calendar.DAY_OF_MONTH, todayIndex);
+                    calEndTime4.set(Calendar.HOUR_OF_DAY, endTimeInt);
+                    calEndTime4.set(Calendar.MINUTE, 0);
+                    calEndTime4.set(Calendar.MONTH, newMonth-1);
+                    calEndTime4.set(Calendar.YEAR, newYear);
+
+                    WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), calStartTime4, calEndTime4);
+                    event4.setColor(getResources().getColor(colors[colorIndex]));
+                    events.add(event4);
+
+                    colorIndex = colorIndex+ 1;
+                }
+
+                todayIndex += 1;
+            }
+        }
+
+        return events;
+    }
+
+
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {

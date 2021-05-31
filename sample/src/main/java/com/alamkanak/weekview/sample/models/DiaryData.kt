@@ -34,7 +34,6 @@ class DiaryData {
 
         /* Get only 3 engineers events  */
         fun splitInto5Keys(arList: Map<String, List<Events>>): List<List<String>> {
-            Log.e("all keys", "  getKeys: "+arList.keys )
             val arrayKeys = arList.keys.chunked(5)
             return arrayKeys
         }
