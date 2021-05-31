@@ -62,7 +62,6 @@ object EventUtils {
 
 
         /* Engineer keys are grouped into five each*/
-
         val users = UserDetails.getModelFromJson()
 
         var usersNames = arrayOfNulls<String>(10) // returns Array<String?>
@@ -74,6 +73,7 @@ object EventUtils {
 
         return usersNames
     }
+
 
     fun setGridAdapter(arList: Map<String, List<Events>>): ArrayList<List<Events>> {
 

@@ -98,6 +98,9 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
             @Override
             public void onClick(View v) {
                 arrayList = eventUtils.decreaseIndex();
+                if (arrayList != null) {
+                    mWeekView.setNumberOfVisibleDays(arrayList.size());
+                }
                 mWeekView.notifyDatasetChanged();
             }
         });
@@ -106,6 +109,9 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
             @Override
             public void onClick(View v) {
                 arrayList = eventUtils.increaseIndex();
+                if (arrayList != null) {
+                    mWeekView.setNumberOfVisibleDays(arrayList.size());
+                }
                 mWeekView.notifyDatasetChanged();
             }
         });
