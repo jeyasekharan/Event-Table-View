@@ -24,9 +24,11 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -819,16 +821,27 @@ public class WeekView extends View {
 
         // Prepare the name of the event.
         SpannableStringBuilder bob = new SpannableStringBuilder();
+        int len = 0;
         if (event.getName() != null) {
 
-            bob.append(event.getName());
+            bob.append(event.getEventName());
+            bob.append("\n"+event.getEngineerName());
             bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, bob.length(), 0);
-            bob.append(' ');
-            bob.append("\nEngineer Id : 4\n ");
-            bob.append("\nCo-op Food Kilgetty SA68 0YA\n ");
-            bob.append("\n\n");
+            len = bob.length();
 
-            bob.append("Estimate");
+            final ForegroundColorSpan fcs_subtitle = new ForegroundColorSpan(Color.rgb(151, 151, 151));
+
+            if(event.getLocation() != null) {
+                bob.append("\n").append(event.getLocation());
+            }
+
+
+ /*         bob.setSpan(fcs_subtitle, len, bob.length(), 0);
+            len = bob.length();
+
+            bob.append("\n\n");
+            bob.append("Estimate");  */
+
 
             /* Drawable left */
             Drawable d1 = ContextCompat.getDrawable(getContext(), R.drawable.ic_spanner_wrench);
@@ -870,6 +883,7 @@ public class WeekView extends View {
         int availableHeight = (int) (rect.bottom - originalTop - mEventPadding * 2);
         int availableWidth = (int) (rect.right - originalLeft - mEventPadding * 2);
 
+        mEventTextPaint.setColor(Color.BLACK);
         // Get text dimensions.
         StaticLayout textLayout = new StaticLayout(bob, mEventTextPaint, availableWidth, Layout.Alignment.ALIGN_NORMAL, 1.0f, 0.0f, false);
 

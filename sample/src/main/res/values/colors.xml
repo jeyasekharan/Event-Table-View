@@ -9,4 +9,6 @@
     <color name="accent">#2789e4</color>
 
     <color name="black">#000000</color>
+
+    <color name="grey_job">#E8E8E8</color>
 </resources>

@@ -239,7 +239,6 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
                     int startTimeInt = Integer.parseInt(startTime.substring(0,2));
                     int endTimeInt = Integer.parseInt(endTime.substring(0,2));
 
-
                     Calendar calStartTime4 = Calendar.getInstance();
                     calStartTime4.set(Calendar.DAY_OF_MONTH, todayIndex);
                     calStartTime4.set(Calendar.HOUR_OF_DAY, startTimeInt);
@@ -254,17 +253,22 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
                     calEndTime4.set(Calendar.MONTH, newMonth-1);
                     calEndTime4.set(Calendar.YEAR, newYear);
 
-                    WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), calStartTime4, calEndTime4);
-                    event4.setColor(getResources().getColor(colors[colorIndex]));
+                 //   WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), calStartTime4, calEndTime4);
+                    WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), singleUser.getEngineer_id(), singleUser.getLocation(), calStartTime4, calEndTime4);
+                    event4.setColor(getResources().getColor(R.color.grey_job));
                     events.add(event4);
 
                     colorIndex = colorIndex+ 1;
+
+                    if (colorIndex > colors.length - 1) {
+                        colorIndex = 0;
+                    }
+                    break;
                 }
 
                 todayIndex += 1;
             }
         }
-
         return events;
     }
 

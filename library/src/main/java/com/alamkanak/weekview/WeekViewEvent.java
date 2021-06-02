@@ -10,8 +10,9 @@ public class WeekViewEvent {
     private long mId;
     private Calendar mStartTime;
     private Calendar mEndTime;
-    private String mName;
+    private String eventName;
     private String mLocation;
+    private String engineerName;
     private int mColor;
 
     public WeekViewEvent(){
@@ -50,7 +51,23 @@ public class WeekViewEvent {
         this.mEndTime.set(Calendar.HOUR_OF_DAY, endHour);
         this.mEndTime.set(Calendar.MINUTE, endMinute);
 
-        this.mName = name;
+        this.eventName = name;
+    }
+
+    public String getEventName() {
+        return eventName;
+    }
+
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
+    public String getEngineerName() {
+        return engineerName;
+    }
+
+    public void setEngineerName(String engineerName) {
+        this.engineerName = engineerName;
     }
 
     /**
@@ -63,7 +80,7 @@ public class WeekViewEvent {
      */
     public WeekViewEvent(long id, String name, String location, Calendar startTime, Calendar endTime) {
         this.mId = id;
-        this.mName = name;
+        this.eventName = name;
         this.mLocation = location;
         this.mStartTime = startTime;
         this.mEndTime = endTime;
@@ -80,6 +97,14 @@ public class WeekViewEvent {
         this(id, name, null, startTime, endTime);
     }
 
+    public WeekViewEvent(long id, String name, String engineerName, String location, Calendar startTime, Calendar endTime) {
+        this.mId = id;
+        this.eventName = name;
+        this.engineerName = engineerName;
+        this.mLocation = location;
+        this.mStartTime = startTime;
+        this.mEndTime = endTime;
+    }
 
     public Calendar getStartTime() {
         return mStartTime;
@@ -98,11 +123,11 @@ public class WeekViewEvent {
     }
 
     public String getName() {
-        return mName;
+        return eventName;
     }
 
     public void setName(String name) {
-        this.mName = name;
+        this.eventName = name;
     }
 
     public String getLocation() {

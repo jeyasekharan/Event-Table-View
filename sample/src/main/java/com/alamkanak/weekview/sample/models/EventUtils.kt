@@ -18,7 +18,7 @@ object EventUtils {
 
         /* Convert string data to Class  */
         val listType: Type = object : TypeToken<List<Events?>?>() {}.type
-        val arList = Gson().fromJson<List<Events>>(EventData.data, listType)
+        val arList = Gson().fromJson<List<Events>>(EventData2.events, listType)
 
         val totalEvents = arList.size
 
