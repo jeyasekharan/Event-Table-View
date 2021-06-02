@@ -276,7 +276,8 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
 
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
-        Toast.makeText(this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Clicked Event Name" + event.getName() +" event "+ event.getEngineerName() + "  address   "+
+                event.getLocation(), Toast.LENGTH_LONG).show();
     }
 
     @Override
