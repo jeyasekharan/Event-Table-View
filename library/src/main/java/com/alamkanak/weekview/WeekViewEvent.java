@@ -14,6 +14,7 @@ public class WeekViewEvent {
     private String mLocation;
     private String engineerName;
     private int mColor;
+    private int jobEventType;
 
     public WeekViewEvent(){
 
@@ -97,13 +98,22 @@ public class WeekViewEvent {
         this(id, name, null, startTime, endTime);
     }
 
-    public WeekViewEvent(long id, String name, String engineerName, String location, Calendar startTime, Calendar endTime) {
+    public WeekViewEvent(long id, String name, String engineerName, String location, Calendar startTime, Calendar endTime, int jobEventType) {
         this.mId = id;
         this.eventName = name;
         this.engineerName = engineerName;
         this.mLocation = location;
         this.mStartTime = startTime;
         this.mEndTime = endTime;
+        this.jobEventType = jobEventType;
+    }
+
+    public int getJobEventType() {
+        return jobEventType;
+    }
+
+    public void setJobEventType(int jobEventType) {
+        this.jobEventType = jobEventType;
     }
 
     public Calendar getStartTime() {

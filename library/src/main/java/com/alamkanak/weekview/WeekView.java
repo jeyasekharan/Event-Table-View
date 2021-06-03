@@ -24,14 +24,11 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.AlignmentSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.HapticFeedbackConstants;
@@ -828,16 +825,16 @@ public class WeekView extends View {
         int len = 0;
 
         if (event.getName() != null) {
-
             bob.append(event.getEventName());
             bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, bob.length(), 0);
             len = bob.length();
+        }
+
 
             // Event Engineer id
             bob.append("\n\n" + "Engineer Id : "+ event.getEngineerName());
             bob.setSpan(new RelativeSizeSpan(1f), len, bob.length(), 0);
             len = bob.length();
-
 
 
             // Event Address
@@ -846,56 +843,41 @@ public class WeekView extends View {
                 bob.append("\n\n").append(event.getLocation());
             }
 
+
             final ForegroundColorSpan fcs_subtitle = new ForegroundColorSpan(Color.rgb(151, 151, 151));
             bob.setSpan(fcs_subtitle, len, bob.length(), 0);
 
             bob.append("\n\n");
-          //bob.append("Estimate   ");
+           //bob.append("Estimate   ");
             len = bob.length();
 
 
-            /* Drawable left*/
-            Drawable d1 = ContextCompat.getDrawable(getContext(), R.drawable.ic_job_grey);
-            d1.setBounds(0, 0, 50, 50);
+            // Set according to job event type
+            switch (event.getJobEventType()) {
+                case 1:
+                {
+                    // NORMAL_EVENT
+                    setEventsIconsBasedOnType(bob, R.drawable.ic_job_grey, R.drawable.ic_status_red,
+                            "Job", "Status");
+                    break;
+                }
 
-            String newStr = d1.toString();
-            bob.append(newStr);
-            bob.setSpan(
-                    new ImageSpan(d1),
-                    len,
-                    bob.length(),
-                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+                case 2:
+                {
+                    // ESTIMATE_JOB_EVENT Event
+                    setEventsIconsBasedOnType(bob, R.drawable.ic_estimate_grey_e, R.drawable.ic_status_blue,
+                            "Estimate", "Status");
+                    break;
+                }
 
-            len = bob.length();
-
-            // Set left Text
-            bob.append("  Job        ");
-            bob.setSpan(new CenterVerticalSpan(), len, bob.length(), 0);
-            len = bob.length();
-
-
-            // Drawable Right
-            Drawable d2 = ContextCompat.getDrawable(getContext(), R.drawable.ic_status_blue);
-            d2.setBounds(0, 0, 50, 50);
-
-            String newStr2 = d2.toString();
-            bob.append(newStr2);
-            bob.setSpan(
-                    new ImageSpan(d2),
-                    len,
-                    bob.length(),
-                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-
-
-            //Set right text
-            len = bob.length();
-            bob.append("  Estimate");
-
-            //bob.setSpan(new AbsoluteSizeSpan(fontSize), 0, 3, 0);
-            bob.setSpan(new CenterVerticalSpan(), len, bob.length(), 0);
-
-        }
-
+                case 3:
+                {
+                    // NORMAL_JOB_EVENT
+                    setEventsIconsBasedOnType(bob, R.drawable.ic_estimate_grey_e, R.drawable.ic_status_orange,
+                            "Estimate", "Status");
+                    break;
+                }
+            }
 
         int availableHeight = (int) (rect.bottom - originalTop - mEventPadding * 2);
         int availableWidth = (int) (rect.right - originalLeft - mEventPadding * 2);
@@ -927,6 +909,51 @@ public class WeekView extends View {
         }
     }
 
+    private SpannableStringBuilder setEventsIconsBasedOnType(SpannableStringBuilder bob, int leftDrawable, int rightDrawable, String leftText, String rightText) {
+        int len = bob.length();
+
+        /* Drawable left*/
+        Drawable d1 = ContextCompat.getDrawable(getContext(), leftDrawable);
+        d1.setBounds(0, 0, 50, 50);
+
+        String newStr = d1.toString();
+        bob.append(newStr);
+        bob.setSpan(
+                new ImageSpan(d1),
+                len,
+                bob.length(),
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+
+        len = bob.length();
+
+        // Set left Text
+        bob.append("  "+leftText+"       ");
+        bob.setSpan(new CenterVerticalSpan(), len, bob.length(), 0);
+        len = bob.length();
+
+
+        // Drawable Right
+        Drawable d2 = ContextCompat.getDrawable(getContext(), rightDrawable);
+        d2.setBounds(0, 0, 50, 50);
+
+        String newStr2 = d2.toString();
+        bob.append(newStr2);
+        bob.setSpan(
+                new ImageSpan(d2),
+                len,
+                bob.length(),
+                Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+
+
+        //Set right text
+        len = bob.length();
+        bob.append("  "+rightText);
+
+        //bob.setSpan(new AbsoluteSizeSpan(fontSize), 0, 3, 0);
+        bob.setSpan(new CenterVerticalSpan(), len, bob.length(), 0);
+
+        return bob;
+    }
 
     /**
      * A class to hold reference to the events and their visual representation. An EventRect is

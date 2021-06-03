@@ -2,10 +2,9 @@ package com.alamkanak.weekview.sample.models
 
 object EventData {
 
-
     const val NORMAL_EVENT = 1
-    const val NORMAL_JOB_EVENT = 3
     const val ESTIMATE_JOB_EVENT = 2
+    const val NORMAL_JOB_EVENT = 3
 
     /* Time data for first column */
     val arrTimes = arrayListOf(

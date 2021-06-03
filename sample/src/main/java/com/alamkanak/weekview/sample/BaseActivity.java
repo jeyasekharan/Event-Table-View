@@ -254,7 +254,7 @@ public abstract class BaseActivity extends AppCompatActivity implements WeekView
                     calEndTime4.set(Calendar.YEAR, newYear);
 
                  //   WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), calStartTime4, calEndTime4);
-                    WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), singleUser.getEngineer_id(), singleUser.getLocation(), calStartTime4, calEndTime4);
+                    WeekViewEvent event4 = new WeekViewEvent(6, singleUser.getTitle(), singleUser.getEngineer_id(), singleUser.getLocation(), calStartTime4, calEndTime4, singleUser.getJobEventType());
                     event4.setColor(getResources().getColor(R.color.grey_job));
                     events.add(event4);
 
