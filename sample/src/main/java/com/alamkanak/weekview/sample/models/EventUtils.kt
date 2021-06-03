@@ -140,7 +140,7 @@ object EventUtils {
     /* Scroll users left and right */
     fun increaseIndex(): ArrayList<List<Events>>? {
         var eventsData:ArrayList<List<Events>>? = null
-        Log.e("this checking    ", " this checking   $usersListIndex")
+        Log.e("this checking    ", " decreases   $usersListIndex")
         if (usersListIndex > 0 ) {
             usersListIndex -= 1
 
@@ -158,8 +158,9 @@ object EventUtils {
     }
 
 
-    fun decreaseIndex(): ArrayList<List<Events>> {
+    fun decreaseIndex(): ArrayList<List<Events>>? {
         var eventsData:ArrayList<List<Events>>? = null
+        Log.e("this checking    ", " increases  $usersListIndex ")
 
         if (usersListIndex < arrFiveGroupsArrayKeys.size -1) {
             usersListIndex += 1
@@ -174,7 +175,7 @@ object EventUtils {
                 Log.e("decresess   ", "  this checking   $eventsData")
             }
         }
-        return eventsData!!
+        return eventsData
 
     }
 }

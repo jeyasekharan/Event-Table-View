@@ -24,6 +24,8 @@ import android.text.StaticLayout;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.text.style.AbsoluteSizeSpan;
+import android.text.style.AlignmentSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.ImageSpan;
 import android.text.style.RelativeSizeSpan;
@@ -826,24 +828,13 @@ public class WeekView extends View {
         int len = 0;
 
         if (event.getName() != null) {
-            Drawable d3 = ContextCompat.getDrawable(getContext(), R.drawable.profile_bg_2);
-            d3.setBounds(0, 0, 50, 50);
-
-            String newStr3 = d3.toString();
-            bob.append(newStr3);
-            bob.setSpan(
-                    new ImageSpan(d3, ImageSpan.ALIGN_BASELINE),
-                    bob.length() - newStr3.length(),
-                    bob.length(),
-                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
-
 
             bob.append(event.getEventName());
             bob.setSpan(new StyleSpan(android.graphics.Typeface.BOLD), 0, bob.length(), 0);
             len = bob.length();
 
             // Event Engineer id
-            bob.append("\n" + "Engineer Id : "+ event.getEngineerName());
+            bob.append("\n\n" + "Engineer Id : "+ event.getEngineerName());
             bob.setSpan(new RelativeSizeSpan(1f), len, bob.length(), 0);
             len = bob.length();
 
@@ -851,47 +842,57 @@ public class WeekView extends View {
 
             // Event Address
             if (event.getLocation() != null) {
-                bob.append("\n").append(event.getLocation());
                 len = bob.length();
+                bob.append("\n\n").append(event.getLocation());
             }
 
             final ForegroundColorSpan fcs_subtitle = new ForegroundColorSpan(Color.rgb(151, 151, 151));
             bob.setSpan(fcs_subtitle, len, bob.length(), 0);
-            len = bob.length();
 
             bob.append("\n\n");
-          //  bob.append("Estimate   ");
-
-
+          //bob.append("Estimate   ");
+            len = bob.length();
 
 
             /* Drawable left*/
-            Drawable d1 = ContextCompat.getDrawable(getContext(), R.drawable.profile_bg_2);
+            Drawable d1 = ContextCompat.getDrawable(getContext(), R.drawable.ic_job_grey);
             d1.setBounds(0, 0, 50, 50);
 
             String newStr = d1.toString();
-            bob.append(newStr + "  ");
+            bob.append(newStr);
             bob.setSpan(
                     new ImageSpan(d1),
-                    bob.length() - newStr.length(),
-                    bob.length() - "\n".length(),
+                    len,
+                    bob.length(),
                     Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
 
-         /*   bob.append("       Status");
+            len = bob.length();
+
+            // Set left Text
+            bob.append("  Job        ");
+            bob.setSpan(new CenterVerticalSpan(), len, bob.length(), 0);
+            len = bob.length();
 
 
-             Drawable Right
-            Drawable d2 = ContextCompat.getDrawable(getContext(), R.drawable.ic_spanner_wrench);
-
+            // Drawable Right
+            Drawable d2 = ContextCompat.getDrawable(getContext(), R.drawable.ic_status_blue);
             d2.setBounds(0, 0, 50, 50);
 
-            String newStr2 = d1.toString() + "\n";
+            String newStr2 = d2.toString();
             bob.append(newStr2);
             bob.setSpan(
-                    new ImageSpan(d1),
-                    bob.length() - newStr.length(),
-                    bob.length() - "\n".length(),
-                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE);*/
+                    new ImageSpan(d2),
+                    len,
+                    bob.length(),
+                    Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+
+
+            //Set right text
+            len = bob.length();
+            bob.append("  Estimate");
+
+            //bob.setSpan(new AbsoluteSizeSpan(fontSize), 0, 3, 0);
+            bob.setSpan(new CenterVerticalSpan(), len, bob.length(), 0);
 
         }
 
